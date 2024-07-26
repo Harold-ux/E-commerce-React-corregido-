@@ -1,0 +1,8 @@
+# Node modules del backend
+node_modules/
+
+# Archivos generados
+logs/
+
+# Archivos de entorno específicos del backend
+.env

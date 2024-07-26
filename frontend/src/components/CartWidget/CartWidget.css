@@ -1,0 +1,46 @@
+/* Estilos para el contenedor principal del carrito */
+.cart-container {
+    margin: 200px auto;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-bottom: 100px;
+}
+
+/* Estilos para el mensaje cuando no hay productos en el carrito */
+.empty-cart-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+}
+
+/* Estilos para la imagen del carrito */
+.cart-image {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el nombre y precio del producto en el carrito */
+.cart-product-info {
+    margin-bottom: 10px;
+}
+
+/* Estilos para el precio del producto en el carrito */
+.cart-product-price {
+    font-weight: bold;
+}
+
+/* Estilos para el total del carrito */
+.cart-total {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.cart{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 50px;
+}

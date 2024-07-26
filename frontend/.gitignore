@@ -1,0 +1,9 @@
+# Node modules del frontend
+node_modules/
+
+# Archivos generados
+build/
+dist/
+
+# Archivos de entorno específicos del frontend
+.env
