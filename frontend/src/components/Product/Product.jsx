@@ -1,23 +1,13 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import Breadcrum from "../Components/Breadcrum/Breadcrum";
-import { ShopContext } from "../Context/ShopContext";
-import ProductDisplay from "../Components/ProductDisplay/ProductDisplay";
+import Breadcrum from "../Breadcrum/Breadcrum.jsx";
+import ProductDisplay from "../Product/ProductDisplay.jsx";
+import { ShopContext } from "../../context/ShopContext.jsx";
 
 const Product = () => {
   const { products, handleAddToCart } = useContext(ShopContext);
   const { productId } = useParams();
-  
-  // Convertir productId a número
-  const numericProductId = Number(productId);
-  
-  const product = products.find(
-    (product) => product.id === numericProductId 
-  );
-
-  if (!product) {
-    return <p>Producto no encontrado.</p>;
-  }
+  const product = products.find((product) => product.id === Number(productId));
 
   return (
     <div>
