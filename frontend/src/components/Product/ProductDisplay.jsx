@@ -7,7 +7,7 @@ import ItemCount from "../ItemCount/ItemCount";
 
 const ProductDisplay = ({ product, handleAddToCart }) => {
   const [setSelectedSizes] = useState([]);
-  const [stock] = useState(10); // Supongamos que hay 10 en stock
+  const [stock] = useState(10); // Suponiendo que hay 10 en stock
 
   const handleSizeChange = (sizes) => {
     setSelectedSizes(sizes);
@@ -22,12 +22,11 @@ const ProductDisplay = ({ product, handleAddToCart }) => {
       <div className="productdisplay-left">
         <img src={product.image} alt="" />
         <img src={product.image} alt="" />
-        <img src={product.image} alt="" />
       </div>
       <div className="productdisplay-main">
         <img className="productdisplay-main-img" src={product.image} alt="" />
         <div className="productdisplay-right">
-          <h1>{product.name}</h1>
+          <h2>{product.name}</h2>
           <div className="productdisplay-right-start">
             <img src={star_icon} alt="" />
             <img src={star_icon} alt="" />
@@ -48,7 +47,7 @@ const ProductDisplay = ({ product, handleAddToCart }) => {
             {product.description}
           </div>
           <div className="productdisplay-right-size">
-            <h1>Selecciona talla</h1>
+            <h4>Selecciona talla</h4>
             <SelectableSizes onSizeChange={handleSizeChange} />
           </div>
           <ItemCount stock={stock} toCart={handleAddToCartWithDetails} />

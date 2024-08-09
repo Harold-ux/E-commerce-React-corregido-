@@ -16,12 +16,9 @@ const ItemDetailContainer = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        // Busca en todas las colecciones locales primero
         let foundProduct = products.find((item) => item.id === productId) ||
                            popularProducts.find((item) => item.id === productId) ||
                            newCollections.find((item) => item.id === productId);
-
-        // Si no se encuentra en las colecciones locales, busca en Firestore
         if (!foundProduct) {
           const collections = ["products", "popular", "new_collections"];
           for (const collectionName of collections) {

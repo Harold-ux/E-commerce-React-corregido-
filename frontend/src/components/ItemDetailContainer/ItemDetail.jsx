@@ -14,7 +14,7 @@ const ItemDetail = ({ product }) => {
         <div className="item-price-new">${product.new_price}</div>
         <div className="item-price-old">${product.old_price}</div>
       </div>
-      <p>{product.description}</p>
+      <div className="productdisplay-right-description">{product.description}</div>
     </div>
   );
 };

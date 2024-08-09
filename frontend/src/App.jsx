@@ -12,7 +12,8 @@ import ShopCategory from "./components/ShopCategory/ShopCategory.jsx";
 import ShopContextProvider from "./context/ShopContext.jsx";
 import LoginSignUp from "./pages/LoginSignUp.jsx";
 import Shop from "./pages/Shop.jsx";
-import ProductDisplay from "./components/Product/ProductDisplay.jsx";
+import Comenta from "./components/Comenta/Comenta.jsx"
+
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/login" element={<LoginSignUp />} />
           <Route path="/add-document" element={<AddDocument />} />
         </Routes>
+        <Comenta />
         <Footer />
       </BrowserRouter>
     </ShopContextProvider>

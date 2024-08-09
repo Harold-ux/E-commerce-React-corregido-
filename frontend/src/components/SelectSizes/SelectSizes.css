@@ -82,7 +82,7 @@
   }
   
   .productdisplay-right-description {
-    font-size: 16px;
+    font-size: 12px;
     color: #666;
     margin-bottom: 15px;
   }
@@ -91,18 +91,19 @@
     margin-bottom: 15px;
   }
   
-  .productdisplay-right-size h1 {
+  .productdisplay-right-size h4 {
     margin-bottom: 15px;
+    color: #3d3d3d;
   }
   
   .size-selector {
     display: flex;
     justify-content: space-around;
-    gap: 30px;
+    gap: 5px;
   }
   
   .size-box {
-    padding: 5px 15px;
+    padding: 5px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     cursor: pointer;

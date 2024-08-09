@@ -56,7 +56,7 @@ const ItemCount = ({ stock }) => {
   return (
     <>
       <div className="cantidad">
-        <h1>Selecciona cantidad</h1>
+        <h4>Selecciona cantidad</h4>
         <span className="count">{count}</span>
       </div>
       <div className="caja">

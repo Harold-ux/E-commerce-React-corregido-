@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import db from "../db/firebaseConfig";
+import { Loading } from "../components/Loading/Loading";
 
 export const ShopContext = createContext(null);
 
