@@ -18,6 +18,21 @@ const Comenta = () => {
     });
   }, [updateUI]);
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setUpdateId(null);
+        setInput("");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   const Comenta = () => {
     if (input.trim() === "") {
       alert("Por favor, ingresa un comentario e inténtelo de nuevo");
@@ -54,8 +69,8 @@ const Comenta = () => {
   return (
     <main>
       <p className="comenta">
-        Déjanos tu comentario!!! <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <RiCornerRightDownLine />
+       Comentarios <span>&nbsp;&nbsp;</span>
+        <RiCornerRightDownLine fontSize={18}/>
       </p>
       <div className="input-holder">
         <textarea

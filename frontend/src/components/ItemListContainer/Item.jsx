@@ -1,7 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "./ItemListContainer.css";
-import { useNavigate } from "react-router-dom";
-import { Loading } from "../Loading/Loading.jsx";
 
 const Item = ({ id, image, name, new_price, old_price }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,6 +8,15 @@ const Item = ({ id, image, name, new_price, old_price }) => {
 
   const handleImageClick = (e) => {
     e.preventDefault();
+    startLoadingSequence();
+  };
+
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    startLoadingSequence();
+  };
+
+  const startLoadingSequence = () => {
     setIsLoading(true);
     
     setTimeout(() => {
@@ -18,7 +26,7 @@ const Item = ({ id, image, name, new_price, old_price }) => {
     setTimeout(() => {
       setIsLoading(false);
       navigate(`/detail/${id}`);
-    }, 1000);
+    }, 2000);
   };
 
   const slowScrollToTop = () => {
@@ -32,13 +40,16 @@ const Item = ({ id, image, name, new_price, old_price }) => {
   return (
     <div className="item">
       {isLoading && <div className="loading-overlay">Cargando...</div>}
-      <a href={`/detail/${id}`} onClick={handleImageClick}>
+      <div className="item-image" onClick={handleImageClick}>
         <img src={image} alt={name} />
-      </a>
+      </div>
       <p>{name}</p>
       <div className="item-prices">
         <div className="item-price-new">${new_price}</div>
         <div className="item-price-old">${old_price}</div>
+      </div>
+      <div className="item-link-button">
+        <button onClick={handleButtonClick}>Ver Detalles</button>
       </div>
     </div>
   );

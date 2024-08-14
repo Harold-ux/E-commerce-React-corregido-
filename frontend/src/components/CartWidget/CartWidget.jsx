@@ -14,9 +14,8 @@ const CartWidget = () => {
     const timer = setTimeout(() => {
       hideLoading();
       setShowCartContent(true);
-    }, 2000);
+    }, 1200);
 
-    // Limpiar el temporizador si el componente se desmonta
     return () => clearTimeout(timer);
   }, [showLoading, hideLoading]);
 
@@ -35,7 +34,7 @@ const CartWidget = () => {
       ) : (
         <div className="cart">
           <img src="/gifs/carrito-de-compra-5.gif" alt="Carrito vacío" />
-          <div className="empty-cart-message">
+          <div className="cart-message">
             No hay productos en el carrito
           </div>
         </div>

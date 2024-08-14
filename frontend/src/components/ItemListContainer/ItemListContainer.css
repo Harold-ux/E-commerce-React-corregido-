@@ -22,6 +22,10 @@
     transform: scale(0.75);
 }
 
+.item-link{
+    text-decoration: none;
+}
+
 .item img {
     width: 100%;
     height: auto;
@@ -65,3 +69,32 @@
     font-size: 20px;
     color: #333;
   }
+
+.item-link-button button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #3f3e3b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .item-link-button button:hover {
+    background-color: #f8be76;
+  }
+  
+  .item-link-button button:active {
+    background-color: #F7B030;
+  }
+  
+  .item-link-button button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(47, 106, 169, 0.5);
+  }
+  

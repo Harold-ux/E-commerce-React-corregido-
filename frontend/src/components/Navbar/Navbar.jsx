@@ -21,15 +21,15 @@ const Navbar = () => {
           {menu === "shop" ? <hr /> : null}
         </li>
         <li onClick={() => setMenu("mens")}>
-          <Link style={{ textDecoration: 'none' }} to="/mens">Hombres</Link>
+          <Link style={{ textDecoration: 'none' }} to="/category/men">Hombres</Link>
           {menu === "mens" ? <hr /> : null}
         </li>
         <li onClick={() => setMenu("womens")}>
-          <Link style={{ textDecoration: 'none' }} to="/womens">Mujeres</Link>
+          <Link style={{ textDecoration: 'none' }} to="/category/women">Mujeres</Link>
           {menu === "womens" ? <hr /> : null}
         </li>
         <li onClick={() => setMenu("kids")}>
-          <Link style={{ textDecoration: 'none' }} to="/kids">Niños</Link>
+          <Link style={{ textDecoration: 'none' }} to="/category/kids">Niños</Link>
           {menu === "kids" ? <hr /> : null}
         </li>
       </ul>
