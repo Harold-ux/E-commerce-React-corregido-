@@ -1,36 +1,14 @@
-import { collection, getDocs, doc } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { ShopContext } from "../../context/ShopContext.jsx";
-import db from "../../db/firebaseConfig.js";
+import React, { useState, useEffect } from "react";
+import { useContext } from "react";
+import { ShopContext } from "../../context/ShopContext";
 import "./ItemCount.css";
 
-const ItemCount = ({ stock }) => {
-  const { idCategory } = useParams();
+const ItemCount = ({ stock, selectedSize }) => {
   const [count, setCount] = useState(0);
-  const [productLoaded, setProductLoaded] = useState(false);
-  const { handleAddToCart, setIdCategory, getProductCart } = useContext(ShopContext);
-  const [products, setProducts] = useState([]);
-
-  const getProducts = () => {
-    const productsRef = collection(db, "newProducts");
-    getDocs(productsRef)
-      .then((productsDb) => {
-        const data = productsDb.docs.map((product) => {
-          return { id: product.id, ...product.data() };
-        });
-
-        console.log(data);
-      })
-      .finally();
-  };
+  const { handleAddToCart } = useContext(ShopContext);
 
   useEffect(() => {
-    if (!productLoaded) {
-      getProducts();
-      setProductLoaded(true);
-    }
-  }, [productLoaded, idCategory]);
+  }, [selectedSize]);
 
   const sumar = () => {
     if (count < stock) {
@@ -49,6 +27,16 @@ const ItemCount = ({ stock }) => {
   };
 
   const agregarAlCarrito = () => {
+    if (count === 0) {
+      alert("Por favor seleccione la cantidad de productos que desea agregar al carrito.");
+      return;
+    }
+    if (!selectedSize) {
+      alert("Por favor, seleccione una talla antes de agregar al carrito.");
+      return;
+    }
+    
+    
     handleAddToCart(count);
     setCount(0);
   };
@@ -60,13 +48,13 @@ const ItemCount = ({ stock }) => {
         <span className="count">{count}</span>
       </div>
       <div className="caja">
-        <button className="size-box" onClick={restar}>
+        <button className="size-box" onClick={restar} disabled={count <= 0}>
           -
         </button>
         <button className="size-box" onClick={agregarAlCarrito}>
           Agregar al carrito
         </button>
-        <button className="size-box" onClick={sumar}>
+        <button className="size-box" onClick={sumar} disabled={count >= stock}>
           +
         </button>
       </div>

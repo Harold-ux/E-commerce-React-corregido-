@@ -7,8 +7,9 @@ const SelectSizes = ({ onSizeChange }) => {
   const sizes = ["S", "M", "L", "XL", "XXL"];
 
   const toggleSize = (size) => {
-    setSelectedSize(selectedSize === size ? null : size);
-    onSizeChange(selectedSize === size ? null : size);
+    const newSize = selectedSize === size ? null : size;
+    setSelectedSize(newSize);
+    onSizeChange(newSize);
   };
 
   return (

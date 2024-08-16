@@ -28,15 +28,16 @@ const CartWidget = () => {
       {carritoTotal > 0 ? (
         <div className="cart">
           <div className="cart-message">
-            Productos en el carrito: {carritoTotal}
+            Productos en el carrito:
+            <div className="cart-sphere">
+              <span className="cart-count">{carritoTotal}</span>
+            </div>
           </div>
         </div>
       ) : (
         <div className="cart">
           <img src="/gifs/carrito-de-compra-5.gif" alt="Carrito vacío" />
-          <div className="cart-message">
-            No hay productos en el carrito
-          </div>
+          <div className="cart-message">No hay productos en el carrito</div>
         </div>
       )}
     </div>

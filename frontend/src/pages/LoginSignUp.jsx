@@ -1,24 +1,52 @@
-import React from "react";
-import './CSS/LoginSignUp.css'
+import React, { useState } from "react";
+import "./CSS/LoginSignUp.css";
 
 const LoginSignUp = () => {
+  const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const cambiarNombre = (e) => setNombre(e.target.value);
+  const cambiarEmail = (e) => setEmail(e.target.value);
+  const cambiarPassword = (e) => setPassword(e.target.value);
+  const enviarFormulario = (e) => {
+    e.preventDefault();
+    const usuario = { nombre, email, password };
+    console.log(usuario);
+
+    //limpiar los campos
+    setNombre("");
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <div className="loginsignup">
-      <div className="loginsignup-container">
-        <h1>Registrese</h1>
+      <form onSubmit={enviarFormulario} className="loginsignup-container">
+        <h1>Regístrese</h1>
         <div className="loginsignup-fields">
-          <input type="text" placeholder="Nombre" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Contraseña" />  
-          <button>Continuar</button>
+          <input type="text" placeholder="Nombre" value={nombre} onChange={cambiarNombre} />
+          <input type="email" placeholder="Email" value={email} onChange={cambiarEmail} />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={cambiarPassword}
+          />
+          <button type="submit">Continuar</button>
         </div>
-        
-        <p className="loginsignup-login">Posse una cuenta? <span>Ingrese aquí</span></p>
+
+        <p className="loginsignup-login">
+          ¿Posse una cuenta? <span>Ingrese aquí</span>
+        </p>
         <div className="loginsignup-agree">
           <input type="checkbox" name="" id="" />
-          <p>Para continuar, acepte los términos de uso y las políticas de privacidad</p>
+          <p>
+            Para continuar, acepte los términos de uso y las políticas de
+            privacidad
+          </p>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

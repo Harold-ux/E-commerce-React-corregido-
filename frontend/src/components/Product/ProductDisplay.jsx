@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import "./Product.css";
 import star_icon from "../../assets/star_icon.png";
 import star_dull_icon from "../../assets/star_dull_icon.png";
-import SelectableSizes from "../../components/SelectSizes/SelectSizes";
+import SelectSizes from "../../components/SelectSizes/SelectSizes";
 import ItemCount from "../ItemCount/ItemCount";
 
 const ProductDisplay = ({ product, handleAddToCart }) => {
-  const [setSelectedSizes] = useState([]);
+  const [selectedSize, setSelectedSize] = useState(null);
   const [stock] = useState(10); // Suponiendo que hay 10 en stock
 
-  const handleSizeChange = (sizes) => {
-    setSelectedSizes(sizes);
+  const handleSizeChange = (size) => {
+    setSelectedSize(size);
   };
 
   const handleAddToCartWithDetails = (count) => {
@@ -48,9 +48,9 @@ const ProductDisplay = ({ product, handleAddToCart }) => {
           </div>
           <div className="productdisplay-right-size">
             <h4>Selecciona talla</h4>
-            <SelectableSizes onSizeChange={handleSizeChange} />
+            <SelectSizes onSizeChange={handleSizeChange} />
           </div>
-          <ItemCount stock={stock} toCart={handleAddToCartWithDetails} />
+          <ItemCount stock={stock} toCart={handleAddToCartWithDetails} selectedSize={selectedSize} />
           <div>
             <p className="productdisplay-right-category">
               <span>Category :</span> {product.category} , sport
