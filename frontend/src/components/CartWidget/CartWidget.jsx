@@ -28,7 +28,7 @@ const CartWidget = () => {
       {carritoTotal > 0 ? (
         <div className="cart">
           <div className="cart-message">
-            Productos en el carrito:
+            Productos en el carrito:<span></span>
             <div className="cart-sphere">
               <span className="cart-count">{carritoTotal}</span>
             </div>

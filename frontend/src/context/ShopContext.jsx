@@ -1,13 +1,10 @@
-import React, { createContext, useState, useEffect } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import React, { createContext, useEffect, useState } from "react";
 import db from "../db/firebaseConfig";
-import { Loading } from "../components/Loading/Loading";
 
 export const ShopContext = createContext(null);
 
 const ShopContextProvider = (props) => {
-  const [carritoTotal, setCarritoTotal] = useState(0);
-  const [idProducto, setIdProducto] = useState(null); 
   const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
   const [newCollections, setNewCollections] = useState([]);
@@ -37,9 +34,22 @@ const ShopContextProvider = (props) => {
     fetchData();
   }, []);
 
-  const handleAddToCart = (cantidad) => {
-    setCarritoTotal((prevTotal) => prevTotal + cantidad);
+  const handleAddToCart = ({ quantity, product }) => {
+    setCartItems((prevItems) => {
+      // Check if the product is already in the cart
+      const existingProduct = prevItems.find((item) => item.id === product.id);
+      if (existingProduct) {
+        // Update the quantity if the product is already in the cart
+        return prevItems.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+        );
+      }
+      // Add the new product to the cart
+      return [...prevItems, { ...product, quantity }];
+    });
   };
+
+  const carritoTotal = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   const contextValue = {
     products,
@@ -47,10 +57,6 @@ const ShopContextProvider = (props) => {
     popularProducts,
     carritoTotal,
     handleAddToCart,
-    setCarritoTotal,
-    idProducto,
-    setIdProducto,
-    cartItems,
     setCartItems,
     db,
   };

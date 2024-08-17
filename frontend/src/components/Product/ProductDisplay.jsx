@@ -1,20 +1,33 @@
-import React, { useState } from "react";
-import "./Product.css";
-import star_icon from "../../assets/star_icon.png";
+import React, { useState, useEffect, useContext } from "react";
+import { ShopContext } from "../../context/ShopContext";
 import star_dull_icon from "../../assets/star_dull_icon.png";
+import star_icon from "../../assets/star_icon.png";
 import SelectSizes from "../../components/SelectSizes/SelectSizes";
 import ItemCount from "../ItemCount/ItemCount";
+import "./Product.css";
 
 const ProductDisplay = ({ product, handleAddToCart }) => {
   const [selectedSize, setSelectedSize] = useState(null);
-  const [stock] = useState(10); // Suponiendo que hay 10 en stock
+  const [stock, setStock] = useState(0);
+
+  const { products } = useContext(ShopContext);
+
+  useEffect(() => {
+    const foundProduct = products.find((p) => p.id === product.id);
+    if (foundProduct) {
+      setStock(foundProduct.stock);
+      console.log(
+        `Valor del stock para el producto con ID ${product.id}: ${foundProduct.stock}`
+      );
+    }
+  }, [product.id, products]);
 
   const handleSizeChange = (size) => {
     setSelectedSize(size);
   };
 
   const handleAddToCartWithDetails = (count) => {
-    handleAddToCart({ id: product.id, count });
+    handleAddToCart({ id: product.id, count, product });
   };
 
   return (
@@ -50,7 +63,12 @@ const ProductDisplay = ({ product, handleAddToCart }) => {
             <h4>Selecciona talla</h4>
             <SelectSizes onSizeChange={handleSizeChange} />
           </div>
-          <ItemCount stock={stock} toCart={handleAddToCartWithDetails} selectedSize={selectedSize} />
+          <ItemCount
+            stock={stock}
+            toCart={handleAddToCartWithDetails}
+            selectedSize={selectedSize}
+            product={product}
+          />
           <div>
             <p className="productdisplay-right-category">
               <span>Category :</span> {product.category} , sport
