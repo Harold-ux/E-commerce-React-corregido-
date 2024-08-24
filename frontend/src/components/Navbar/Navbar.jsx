@@ -35,7 +35,7 @@ const Navbar = () => {
       </ul>
       <div className="nav-login-cart">
         <Link to="/login"><button>Ingresa</button></Link>
-        <Link to="/CartWidget"><img src={cart_icon} alt="" /></Link>
+        <Link to="/cartwidget"><img src={cart_icon} alt="" /></Link>
         <div className="nav-cart-count">{carritoTotal}</div>
       </div>
     </div>

@@ -14,17 +14,31 @@ const ShopContextProvider = (props) => {
     const fetchData = async () => {
       try {
         const productsSnapshot = await getDocs(collection(db, "products"));
-        const productsArray = productsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        const productsArray = productsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setProducts(productsArray);
 
-        const newCollectionsQuery = query(collection(db, "products"), where("category", "==", "new_collections"));
+        const newCollectionsQuery = query(
+          collection(db, "products"),
+          where("category", "==", "new_collections")
+        );
         const newCollectionsSnapshot = await getDocs(newCollectionsQuery);
-        const newCollectionsArray = newCollectionsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        const newCollectionsArray = newCollectionsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setNewCollections(newCollectionsArray);
 
-        const popularProductsQuery = query(collection(db, "products"), where("category", "==", "popular"));
+        const popularProductsQuery = query(
+          collection(db, "products"),
+          where("category", "==", "popular")
+        );
         const popularProductsSnapshot = await getDocs(popularProductsQuery);
-        const popularProductsArray = popularProductsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        const popularProductsArray = popularProductsSnapshot.docs.map(
+          (doc) => ({ id: doc.id, ...doc.data() })
+        );
         setPopularProducts(popularProductsArray);
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -36,27 +50,38 @@ const ShopContextProvider = (props) => {
 
   const handleAddToCart = ({ quantity, product }) => {
     setCartItems((prevItems) => {
-      // Check if the product is already in the cart
       const existingProduct = prevItems.find((item) => item.id === product.id);
       if (existingProduct) {
-        // Update the quantity if the product is already in the cart
         return prevItems.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
         );
       }
-      // Add the new product to the cart
+
       return [...prevItems, { ...product, quantity }];
     });
   };
 
-  const carritoTotal = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const carritoTotal = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
+  const handleVaciarCarrito = () => {
+    if (window.confirm("¿Estás seguro de que deseas vaciar el carrito?")) {
+      setCartItems([]);
+    }
+  };
+  
   const contextValue = {
     products,
     newCollections,
     popularProducts,
     carritoTotal,
     handleAddToCart,
+    cartItems,
+    handleVaciarCarrito,
     setCartItems,
     db,
   };

@@ -69,7 +69,7 @@ const ProductDisplay = ({ product, handleAddToCart }) => {
             selectedSize={selectedSize}
             product={product}
           />
-          <div>
+          <div className="etiquetas">
             <p className="productdisplay-right-category">
               <span>Category :</span> {product.category} , sport
             </p>

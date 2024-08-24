@@ -9,7 +9,7 @@ const ItemCount = ({ stock, selectedSize, product }) => {
 
   useEffect(() => {}, [selectedSize]);
 
-  const sumar = () => {
+  const handleClickIncrement = () => {
     if (quantity < stock) {
       setQuantity(quantity + 1);
     } else {
@@ -17,7 +17,7 @@ const ItemCount = ({ stock, selectedSize, product }) => {
     }
   };
 
-  const restar = () => {
+  const handleClickDecrement = () => {
     if (quantity > 0) {
       setQuantity(quantity - 1);
     } else {
@@ -25,7 +25,7 @@ const ItemCount = ({ stock, selectedSize, product }) => {
     }
   };
 
-  const agregarAlCarrito = () => {
+  const addToCart = () => {
     if (quantity === 0) {
       alert(
         "Por favor seleccione la cantidad de productos que desea agregar al carrito."
@@ -50,15 +50,15 @@ const ItemCount = ({ stock, selectedSize, product }) => {
         <span className="count">{quantity}</span>
       </div>
       <div className="caja">
-        <button className="size-box" onClick={restar} disabled={quantity <= 0}>
+        <button className="size-box" onClick={handleClickDecrement} disabled={quantity <= 0}>
           -
         </button>
-        <button className="size-box" onClick={agregarAlCarrito}>
+        <button className="size-box" onClick={addToCart}>
           Agregar al carrito
         </button>
         <button
           className="size-box"
-          onClick={sumar}
+          onClick={handleClickIncrement}
           disabled={quantity >= stock}
         >
           +

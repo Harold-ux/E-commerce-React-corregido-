@@ -1,11 +1,11 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import dropdown_icon from "../../assets/dropdown_icon.png";
-import db from "../../db/firebaseConfig.js";
 import kid_banner from "../../assets/banner_kids.png";
 import men_banner from "../../assets/banner_mens.png";
 import women_banner from "../../assets/banner_women.png";
+import dropdown_icon from "../../assets/dropdown_icon.png";
+import db from "../../db/firebaseConfig.js";
 import useLoading from "../../hooks/useLoading.jsx";
 import ItemList from "../ItemListContainer/ItemList";
 import "./ShopCategory.css";

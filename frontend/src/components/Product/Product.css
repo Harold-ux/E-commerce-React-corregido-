@@ -81,7 +81,7 @@
 }
 
 .productdisplay-right-size {
-  margin-bottom: 4px; 
+  margin-bottom: 4px;
 }
 
 .productdisplay-right-size h3 {
@@ -113,9 +113,16 @@
 
 .productdisplay-right-category {
   font-size: 10px;
-  color: #333;
+  color: #1a1919;
+  font-weight: 400;
 }
 
-.productdisplay-right-category span {
-  font-weight: bold;
+.productdisplay-right-description {
+  color: #1a1919;
+  font-weight: 600;
+}
+
+.etiquetas {
+  display: flex;
+  gap: 20px;
 }
