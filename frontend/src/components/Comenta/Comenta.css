@@ -48,3 +48,17 @@ main {
     padding: 0;
     list-style: none;
 }
+
+
+.custom-swal-popup {
+  width: 400px;
+  padding: 15px;
+}
+
+.custom-swal-title {
+  font-size: 18px;
+}
+
+.custom-swal-content {
+  font-size: 14px;
+}

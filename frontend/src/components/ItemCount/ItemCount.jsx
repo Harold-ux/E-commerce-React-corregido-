@@ -1,46 +1,94 @@
-import React, { useState, useEffect } from "react";
-import { useContext } from "react";
-import { ShopContext } from "../../context/ShopContext";
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { useCart } from "../../context/CartContext";
 import "./ItemCount.css";
+import { BiFontSize } from "react-icons/bi";
 
 const ItemCount = ({ stock, selectedSize, product }) => {
   const [quantity, setQuantity] = useState(0);
-  const { handleAddToCart } = useContext(ShopContext);
+  const { addToCart } = useCart();
 
   useEffect(() => {}, [selectedSize]);
 
   const handleClickIncrement = () => {
-    if (quantity < stock) {
+    console.log("Increment clicked, Quantity:", quantity, "Stock:", stock);
+    if (typeof stock === 'number' && quantity < stock) {
       setQuantity(quantity + 1);
     } else {
-      alert("Cantidad máxima permitida!!");
+      console.log("Alert should trigger - Quantity:", quantity, "Stock:", stock);
+      Swal.fire({
+        icon: "warning",
+        title: "Límite alcanzado",
+        text: "Cantidad máxima permitida!!",
+        customClass: {
+          popup: "custom-swal-popup",
+          title: "custom-swal-title",
+          text: "custom-swal-content"
+        }
+      });
     }
   };
+  
 
   const handleClickDecrement = () => {
+    console.log("Decrement clicked");
     if (quantity > 0) {
       setQuantity(quantity - 1);
     } else {
-      alert("Stock agotado!!");
+      Swal.fire({
+        icon: "warning",
+        title: "Stock agotado",
+        text: "No puedes disminuir más!",
+        customClass: {
+          popup: "custom-swal-popup",
+          title: "custom-swal-title",
+          text: "custom-swal-content"
+        }
+      });
     }
   };
 
-  const addToCart = () => {
+  const addToCartHandler = () => {
+    console.log("Add to cart clicked");
     if (quantity === 0) {
-      alert(
-        "Por favor seleccione la cantidad de productos que desea agregar al carrito."
-      );
+      Swal.fire({
+        icon: "warning",
+        title: "Cantidad requerida",
+        text: "Por favor seleccione la cantidad de productos que desea agregar al carrito.",
+        customClass: {
+          popup: "custom-swal-popup",
+          title: "custom-swal-title",
+          text: "custom-swal-content"
+        }
+      });
       return;
     }
     if (!selectedSize) {
-      alert("Por favor, seleccione una talla antes de agregar al carrito.");
+      Swal.fire({
+        icon: "warning",
+        title: "Talla requerida",
+        text: "Por favor, seleccione una talla antes de agregar al carrito.",
+        customClass: {
+          popup: "custom-swal-popup",
+          title: "custom-swal-title",
+          text: "custom-swal-content"
+        }
+      });
       return;
     }
 
-    handleAddToCart({ quantity, product });
-    const productCart = { ...product, quantity };
+    addToCart({ ...product, quantity });
     setQuantity(0);
-    console.log(productCart);
+    Swal.fire({
+      icon: "success",
+      title: "Producto agregado",
+      text: "El producto ha sido agregado al carrito.",
+      customClass: {
+        popup: "custom-swal-popup",
+        title: "custom-swal-title",
+        text: "custom-swal-content"
+      }
+    });
   };
 
   return (
@@ -53,7 +101,7 @@ const ItemCount = ({ stock, selectedSize, product }) => {
         <button className="size-box" onClick={handleClickDecrement} disabled={quantity <= 0}>
           -
         </button>
-        <button className="size-box" onClick={addToCart}>
+        <button className="size-box" onClick={addToCartHandler}>
           Agregar al carrito
         </button>
         <button

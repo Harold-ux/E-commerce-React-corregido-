@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ShopContext } from "../../context/ShopContext";
 import useLoading from "../../hooks/useLoading";
 import "./CartWidget.css";
+import { useCart } from "../../context/CartContext.jsx";
 
 const CartWidget = () => {
-  const { cartItems, handleVaciarCarrito } = useContext(ShopContext);
+  const { cartItems = [], clearCart, totalQuantity, totalAmount } = useCart();
   const { loadingScreen, showLoading, hideLoading } = useLoading();
   const [showCartContent, setShowCartContent] = useState(false);
 
@@ -23,14 +23,9 @@ const CartWidget = () => {
     return loadingScreen;
   }
 
-  // Calcular la cantidad total de la compra
-  const totalAmount = cartItems.reduce((total, item) => {
-    return total + item.new_price * item.quantity;
-  }, 0);
-
   return (
     <Link to="/cartwidget" className="cart-container">
-      {cartItems && cartItems.length > 0 ? (
+      {totalQuantity > 0 ? (
         <div className="cart">
           <h2>Productos en el carrito:</h2>
           <div className="cart-items">
@@ -57,7 +52,7 @@ const CartWidget = () => {
             ))}
           </div>
           <div className="cart-footer">
-            <button className="vaciar-carrito-btn" onClick={handleVaciarCarrito}>
+            <button className="vaciar-carrito-btn" onClick={clearCart}>
               Vaciar carrito
             </button>
             <div className="cart-total">

@@ -1,11 +1,11 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import db from "../db/firebaseConfig";
+import Swal from "sweetalert2";
 
 export const ShopContext = createContext(null);
 
 const ShopContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
   const [newCollections, setNewCollections] = useState([]);
   const [popularProducts, setPopularProducts] = useState([]);
@@ -42,48 +42,21 @@ const ShopContextProvider = (props) => {
         setPopularProducts(popularProductsArray);
       } catch (error) {
         console.error("Error fetching data: ", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Hubo un problema al obtener los datos. Por favor, inténtalo de nuevo.",
+        });
       }
     };
 
     fetchData();
   }, []);
 
-  const handleAddToCart = ({ quantity, product }) => {
-    setCartItems((prevItems) => {
-      const existingProduct = prevItems.find((item) => item.id === product.id);
-      if (existingProduct) {
-        return prevItems.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      }
-
-      return [...prevItems, { ...product, quantity }];
-    });
-  };
-
-  const carritoTotal = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
-
-  const handleVaciarCarrito = () => {
-    if (window.confirm("¿Estás seguro de que deseas vaciar el carrito?")) {
-      setCartItems([]);
-    }
-  };
-  
   const contextValue = {
     products,
     newCollections,
     popularProducts,
-    carritoTotal,
-    handleAddToCart,
-    cartItems,
-    handleVaciarCarrito,
-    setCartItems,
-    db,
   };
 
   return (

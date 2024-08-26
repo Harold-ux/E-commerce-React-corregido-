@@ -45,6 +45,10 @@ const ShopCategory = () => {
     setVisibleCount((prevCount) => Math.min(prevCount + 8, products.length));
   };
 
+  const handleShowLess = () => {
+    setVisibleCount((prevCount) => Math.max(prevCount - 8, 8));
+  };
+
   const getBanner = () => {
     switch (categoryId) {
       case 'men':
@@ -83,13 +87,18 @@ const ShopCategory = () => {
           <div className="shopcategory-products">
             <ItemList products={products.slice(0, visibleCount)} />
           </div>
-          {visibleCount < products.length && (
-            <div className="loadmore-container">
+          <div className="loadmore-container">
+            {visibleCount < products.length && (
               <button onClick={handleShowMore} className="shopcategory-loadmore">
                 Ver más
               </button>
-            </div>
-          )}
+            )}
+            {visibleCount > 8 && (
+              <button onClick={handleShowLess} className="shopcategory-loadmore">
+                Ver menos
+              </button>
+            )}
+          </div>
         </>
       )}
     </div>

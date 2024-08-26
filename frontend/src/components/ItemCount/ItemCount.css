@@ -13,8 +13,8 @@
 
 .cantidad {
   display: flex;
+  justify-content: space-between;
   width: 100%;
-  gap: 45%;
   color: #3d3d3d;
 }
 
@@ -24,4 +24,17 @@
   padding: 10px 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.custom-swal-popup {
+  width: 400px;
+  padding: 15px;
+}
+
+.custom-swal-title {
+  font-size: 12px;
+}
+
+.custom-swal-content {
+  font-size: 5px;
 }

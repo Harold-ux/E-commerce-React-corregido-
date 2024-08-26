@@ -4,6 +4,7 @@ import "../Comenta/Comenta.css";
 import { RiCornerRightDownLine } from "react-icons/ri";
 import axios from "axios";
 import { baseURL } from "../../utils/constant";
+import Swal from "sweetalert2";
 
 const Comenta = () => {
   const [input, setInput] = useState("");
@@ -35,7 +36,14 @@ const Comenta = () => {
 
   const Comenta = () => {
     if (input.trim() === "") {
-      alert("Por favor, ingresa un comentario e inténtelo de nuevo");
+      Swal.fire({
+        icon: "warning",
+        title: "Comentario vacío",
+        text: "Por favor, ingresa un comentario e inténtelo de nuevo",
+        customClass: {
+          popup: "custom-swal-popup"
+        }
+      });
       return;
     }
     axios.post(`${baseURL}/save`, { comentario: input }).then((res) => {
@@ -53,7 +61,16 @@ const Comenta = () => {
 
   const Actualiza = () => {
     if (input.trim() === "") {
-      alert("Por favor, ingresa un comentario e inténtelo de nuevo");
+      Swal.fire({
+        icon: "warning",
+        title: "Comentario vacío",
+        text: "Por favor, ingresa un comentario e inténtelo de nuevo",
+        customClass: {
+          popup: "custom-swal-popup",
+          title: "custom-swal-title",
+          text: "custom-swal-content"
+        }
+      });
       return;
     }
     axios
@@ -69,8 +86,8 @@ const Comenta = () => {
   return (
     <main>
       <p className="comenta">
-       Comentarios <span>&nbsp;&nbsp;</span>
-        <RiCornerRightDownLine fontSize={18}/>
+        Comenta <span>&nbsp;&nbsp;</span>
+        <RiCornerRightDownLine fontSize={18} />
       </p>
       <div className="input-holder">
         <textarea
