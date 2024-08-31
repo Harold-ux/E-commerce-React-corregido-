@@ -101,7 +101,7 @@ const Comenta = () => {
           type="submit"
           onClick={updateId !== null ? Actualiza : Comenta}
         >
-          {updateId !== null ? "actualiza" : "comenta"}
+          {updateId !== null ? "edita" : "escribe"}
         </button>
       </div>
       <ul className="comentarios">

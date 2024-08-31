@@ -4,7 +4,7 @@
 }
 
 .count {
-  padding: 0.5px 12px;
+  padding: 0.5px 6px;
   border: 1px solid #ccc;
   border-radius: 4px;
   user-select: none;
@@ -14,7 +14,7 @@
 .cantidad {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 93.5%;
   color: #3d3d3d;
 }
 

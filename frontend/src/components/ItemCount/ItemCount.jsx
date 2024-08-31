@@ -2,24 +2,45 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useCart } from "../../context/CartContext";
 import "./ItemCount.css";
-import { BiFontSize } from "react-icons/bi";
 
 const ItemCount = ({ stock, selectedSize, product }) => {
   const [quantity, setQuantity] = useState(0);
-  const { addToCart } = useCart();
+  const { addToCart, cartItems } = useCart();
 
-  useEffect(() => {}, [selectedSize]);
+  useEffect(() => {
+    console.log("Selected size changed:", selectedSize);
+  }, [selectedSize]);
+
+  useEffect(() => {
+    console.log("Valores recibidos del CartContext:", cartItems); 
+  }, [cartItems]);
 
   const handleClickIncrement = () => {
     console.log("Increment clicked, Quantity:", quantity, "Stock:", stock);
+  
     if (typeof stock === 'number' && quantity < stock) {
-      setQuantity(quantity + 1);
+      const newQuantity = quantity + 1;
+  
+      if (newQuantity === stock) {
+        Swal.fire({
+          icon: "info",
+          title: "Stock alcanzado",
+          text: "Has alcanzado el límite del stock disponible.",
+          customClass: {
+            popup: "custom-swal-popup",
+            title: "custom-swal-title",
+            text: "custom-swal-content"
+          }
+        });
+      }
+  
+      setQuantity(newQuantity);
     } else {
-      console.log("Alert should trigger - Quantity:", quantity, "Stock:", stock);
+      console.log("Increment button disabled - Max stock reached.");
       Swal.fire({
         icon: "warning",
         title: "Límite alcanzado",
-        text: "Cantidad máxima permitida!!",
+        text: "Cantidad máxima permitida!",
         customClass: {
           popup: "custom-swal-popup",
           title: "custom-swal-title",
@@ -31,14 +52,15 @@ const ItemCount = ({ stock, selectedSize, product }) => {
   
 
   const handleClickDecrement = () => {
-    console.log("Decrement clicked");
-    if (quantity > 0) {
+    console.log("Decrement clicked, Quantity:", quantity);
+    if (quantity > 1) {
       setQuantity(quantity - 1);
     } else {
+      console.log("Decrement button disabled - Min quantity reached.");
       Swal.fire({
         icon: "warning",
-        title: "Stock agotado",
-        text: "No puedes disminuir más!",
+        title: "No puedes disminuir más!",
+        text: "Has alcanzado el mínimo permitido.",
         customClass: {
           popup: "custom-swal-popup",
           title: "custom-swal-title",
@@ -49,7 +71,8 @@ const ItemCount = ({ stock, selectedSize, product }) => {
   };
 
   const addToCartHandler = () => {
-    console.log("Add to cart clicked");
+    console.log("Datos enviados a addToCart:", { ...product, quantity, selectedSize });
+
     if (quantity === 0) {
       Swal.fire({
         icon: "warning",
@@ -63,6 +86,7 @@ const ItemCount = ({ stock, selectedSize, product }) => {
       });
       return;
     }
+
     if (!selectedSize) {
       Swal.fire({
         icon: "warning",
@@ -77,7 +101,7 @@ const ItemCount = ({ stock, selectedSize, product }) => {
       return;
     }
 
-    addToCart({ ...product, quantity });
+    addToCart({ ...product, quantity, selectedSize });
     setQuantity(0);
     Swal.fire({
       icon: "success",
@@ -98,7 +122,11 @@ const ItemCount = ({ stock, selectedSize, product }) => {
         <span className="count">{quantity}</span>
       </div>
       <div className="caja">
-        <button className="size-box" onClick={handleClickDecrement} disabled={quantity <= 0}>
+        <button
+          className="size-box"
+          onClick={handleClickDecrement}
+          disabled={quantity <= 1}
+        >
           -
         </button>
         <button className="size-box" onClick={addToCartHandler}>

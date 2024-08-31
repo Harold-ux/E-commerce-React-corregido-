@@ -7,7 +7,7 @@
     background-color: #b1745ab1;
     color: white;
     text-align: center;
-    line-height: 50px;
+    line-height: 45px;
     font-size: 20px;
     border-radius: 10%;
     cursor: pointer;
@@ -17,6 +17,6 @@
   }
   
   .scroll-to-top:hover {
-    background-color: #6f82369e;
+    background-color: #c7c7c7;
   }
   

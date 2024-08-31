@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import Swal from "sweetalert2";
+import { scrollToTop } from "../components/ScrollToTopButton/ScrollToTopButton";
 
 const CartContext = createContext();
 
@@ -41,6 +42,7 @@ export const CartProvider = ({ children }) => {
       }
     }).then((result) => {
       if (result.isConfirmed) {
+        scrollToTop();
         setCartItems([]);
         Swal.fire({
           icon: "success",

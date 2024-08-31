@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddDocument from "./components/AddDocument/AddDocument.jsx";
 import CartWidget from "./components/CartWidget/CartWidget.jsx";
@@ -14,6 +14,12 @@ import Shop from "./pages/Shop.jsx";
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton.jsx";
 
 function App() {
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
   return (
     <React.StrictMode>
       <BrowserRouter>

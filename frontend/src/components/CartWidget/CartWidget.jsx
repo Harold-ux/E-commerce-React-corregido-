@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import useLoading from "../../hooks/useLoading";
+import useLoading from "../../hooks/useLoading.jsx";
 import "./CartWidget.css";
 import { useCart } from "../../context/CartContext.jsx";
 
 const CartWidget = () => {
-  const { cartItems = [], clearCart, totalQuantity, totalAmount } = useCart();
+  const {
+    cartItems = [],
+    clearCart,
+    removeFromCart,
+    totalQuantity,
+    totalAmount,
+  } = useCart();
   const { loadingScreen, showLoading, hideLoading } = useLoading();
   const [showCartContent, setShowCartContent] = useState(false);
 
@@ -27,7 +33,7 @@ const CartWidget = () => {
     <Link to="/cartwidget" className="cart-container">
       {totalQuantity > 0 ? (
         <div className="cart">
-          <h2>Productos en el carrito:</h2>
+          <h2>Productos en el carrito</h2>
           <div className="cart-items">
             {cartItems.map((item) => (
               <div key={item.id} className="cart-item">
@@ -37,15 +43,29 @@ const CartWidget = () => {
                   className="cart-item-image"
                 />
                 <div className="cart-item-details">
-                  <span className="cart-item-name">{item.name}</span>
+                  <div className="cart-item-header">
+                    <span className="cart-item-name">{item.name}</span>
+                    <button
+                      className="remove-item-btn"
+                      onClick={() => removeFromCart(item.id)}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
                   <span className="cart-item-price">
-                    Precio: ${item.new_price}
+                    Precio:{" "}
+                    <span className="cart-item-price-value">
+                      ${item.new_price}
+                    </span>
                   </span>
                   <span className="cart-item-description">
                     {item.description}
                   </span>
                   <span className="cart-item-quantity">
                     Cantidad: {item.quantity}
+                  </span>
+                  <span className="cart-item-size">
+                    Talla: {item.selectedSize}
                   </span>
                 </div>
               </div>
@@ -56,7 +76,9 @@ const CartWidget = () => {
               Vaciar carrito
             </button>
             <div className="cart-total">
-              <span className="cart-count">Total: ${totalAmount.toFixed(2)}</span>
+              <span className="cart-count">
+                Total: ${totalAmount.toFixed(2)}
+              </span>
             </div>
           </div>
         </div>
@@ -64,7 +86,9 @@ const CartWidget = () => {
         <div className="cart-empty">
           <img src="/gifs/carrito-de-compra-5.gif" alt="Carrito vacío" />
           <div className="cart-message">No hay productos en el carrito</div>
-        </div>
+          <Link to="/" className="return-home-btn">
+            Volver a la tienda
+          </Link>        </div>
       )}
     </Link>
   );
