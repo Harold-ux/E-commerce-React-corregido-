@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
 import Swal from "sweetalert2";
-import { scrollToTop } from "../components/ScrollToTopButton/ScrollToTopButton";
 
 const CartContext = createContext();
 
@@ -42,7 +41,6 @@ export const CartProvider = ({ children }) => {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        scrollToTop();
         setCartItems([]);
         Swal.fire({
           icon: "success",
@@ -53,9 +51,19 @@ export const CartProvider = ({ children }) => {
             title: "custom-swal-title",
             text: "custom-swal-content"
           }
+        }).then(() => {
+          slowScrollToTop();
         });
       }
     });
+  };
+
+  const slowScrollToTop = () => {
+    const position = document.documentElement.scrollTop || document.body.scrollTop;
+    if (position > 0) {
+      window.requestAnimationFrame(slowScrollToTop);
+      window.scrollTo(0, position - position / 32);
+    }
   };
 
   const contextValue = {

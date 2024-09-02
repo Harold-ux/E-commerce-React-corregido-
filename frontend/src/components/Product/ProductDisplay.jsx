@@ -60,7 +60,7 @@ const ProductDisplay = ({ product, handleAddToCart }) => {
             {product.description}
           </div>
           <div className="productdisplay-right-size">
-            <h4>Selecciona talla</h4>
+            <h4>Seleccione talla</h4>
             <SelectSizes onSizeChange={handleSizeChange} />
           </div>
           <ItemCount

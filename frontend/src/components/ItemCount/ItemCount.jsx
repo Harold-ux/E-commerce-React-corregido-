@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useCart } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
 import "./ItemCount.css";
 
 const ItemCount = ({ stock, selectedSize, product }) => {
   const [quantity, setQuantity] = useState(0);
   const { addToCart, cartItems } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Selected size changed:", selectedSize);
@@ -112,13 +114,31 @@ const ItemCount = ({ stock, selectedSize, product }) => {
         title: "custom-swal-title",
         text: "custom-swal-content"
       }
+    }).then(() => {
+      Swal.fire({
+        icon: "question",
+        title: "¿Quieres ir al carrito?",
+        text: "Puedes revisar o editar tu carrito... ó, seguir comprando.",
+        showCancelButton: true,
+        confirmButtonText: "Ir al carrito",
+        cancelButtonText: "Seguir comprando",
+        customClass: {
+          popup: "custom-swal-popup",
+          title: "custom-swal-title",
+          text: "custom-swal-content"
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/cartwidget");
+        }
+      });
     });
   };
 
   return (
     <>
       <div className="cantidad">
-        <h4>Selecciona cantidad</h4>
+        <h4>Seleccione cantidad</h4>
         <span className="count">{quantity}</span>
       </div>
       <div className="caja">

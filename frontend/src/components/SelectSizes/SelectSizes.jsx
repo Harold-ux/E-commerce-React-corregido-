@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SelectSizes.css";
+import "../Product/Product.css";
 
 const SelectSizes = ({ onSizeChange }) => {
   const [selectedSize, setSelectedSize] = useState(null);
@@ -13,11 +13,11 @@ const SelectSizes = ({ onSizeChange }) => {
   };
 
   return (
-    <div className="size-selector">
+    <div className="select-size-selector">
       {sizes.map((size) => (
         <div
           key={size}
-          className={`size-box ${selectedSize === size ? "selected" : ""}`}
+          className={`select-size-box ${selectedSize === size ? "selected" : ""}`}
           onClick={() => toggleSize(size)}
         >
           {size}
