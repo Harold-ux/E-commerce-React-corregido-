@@ -45,7 +45,7 @@ const Navbar = () => {
         <Link to="/login">
           <button>Ingresa</button>
         </Link>
-        <Link to="/cartwidget">
+        <Link to="/cart">
           <img src={cart_icon} alt="" />
         </Link>
         {totalQuantity > 0 && (

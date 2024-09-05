@@ -14,15 +14,15 @@ const ItemCount = ({ stock, selectedSize, product }) => {
   }, [selectedSize]);
 
   useEffect(() => {
-    console.log("Valores recibidos del CartContext:", cartItems); 
+    console.log("Valores recibidos del CartContext:", cartItems);
   }, [cartItems]);
 
   const handleClickIncrement = () => {
     console.log("Increment clicked, Quantity:", quantity, "Stock:", stock);
-  
-    if (typeof stock === 'number' && quantity < stock) {
+
+    if (typeof stock === "number" && quantity < stock) {
       const newQuantity = quantity + 1;
-  
+
       if (newQuantity === stock) {
         Swal.fire({
           icon: "info",
@@ -31,11 +31,11 @@ const ItemCount = ({ stock, selectedSize, product }) => {
           customClass: {
             popup: "custom-swal-popup",
             title: "custom-swal-title",
-            text: "custom-swal-content"
-          }
+            text: "custom-swal-content",
+          },
         });
       }
-  
+
       setQuantity(newQuantity);
     } else {
       console.log("Increment button disabled - Max stock reached.");
@@ -46,12 +46,11 @@ const ItemCount = ({ stock, selectedSize, product }) => {
         customClass: {
           popup: "custom-swal-popup",
           title: "custom-swal-title",
-          text: "custom-swal-content"
-        }
+          text: "custom-swal-content",
+        },
       });
     }
   };
-  
 
   const handleClickDecrement = () => {
     console.log("Decrement clicked, Quantity:", quantity);
@@ -66,14 +65,18 @@ const ItemCount = ({ stock, selectedSize, product }) => {
         customClass: {
           popup: "custom-swal-popup",
           title: "custom-swal-title",
-          text: "custom-swal-content"
-        }
+          text: "custom-swal-content",
+        },
       });
     }
   };
 
   const addToCartHandler = () => {
-    console.log("Datos enviados a addToCart:", { ...product, quantity, selectedSize });
+    console.log("Datos enviados a addToCart:", {
+      ...product,
+      quantity,
+      selectedSize,
+    });
 
     if (quantity === 0) {
       Swal.fire({
@@ -83,8 +86,8 @@ const ItemCount = ({ stock, selectedSize, product }) => {
         customClass: {
           popup: "custom-swal-popup",
           title: "custom-swal-title",
-          text: "custom-swal-content"
-        }
+          text: "custom-swal-content",
+        },
       });
       return;
     }
@@ -97,8 +100,8 @@ const ItemCount = ({ stock, selectedSize, product }) => {
         customClass: {
           popup: "custom-swal-popup",
           title: "custom-swal-title",
-          text: "custom-swal-content"
-        }
+          text: "custom-swal-content",
+        },
       });
       return;
     }
@@ -112,8 +115,8 @@ const ItemCount = ({ stock, selectedSize, product }) => {
       customClass: {
         popup: "custom-swal-popup",
         title: "custom-swal-title",
-        text: "custom-swal-content"
-      }
+        text: "custom-swal-content",
+      },
     }).then(() => {
       Swal.fire({
         icon: "question",
@@ -125,11 +128,11 @@ const ItemCount = ({ stock, selectedSize, product }) => {
         customClass: {
           popup: "custom-swal-popup",
           title: "custom-swal-title",
-          text: "custom-swal-content"
-        }
+          text: "custom-swal-content",
+        },
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/cartwidget");
+          navigate("/cart");
         }
       });
     });
@@ -138,26 +141,26 @@ const ItemCount = ({ stock, selectedSize, product }) => {
   return (
     <>
       <div className="cantidad">
-        <h4>Seleccione cantidad</h4>
-        <span className="count">{quantity}</span>
-      </div>
-      <div className="caja">
-        <button
-          className="size-box"
-          onClick={handleClickDecrement}
-          disabled={quantity <= 1}
-        >
-          -
-        </button>
-        <button className="size-box" onClick={addToCartHandler}>
+        <div className="caja">
+          <h4>Seleccione cantidad</h4>
+          <button
+            className="size-box"
+            onClick={handleClickDecrement}
+            disabled={quantity <= 1}
+          >
+            -
+          </button>
+          <span className="count">{quantity}</span>
+          <button
+            className="size-box"
+            onClick={handleClickIncrement}
+            disabled={quantity >= stock}
+          >
+            +
+          </button>
+        </div>
+        <button className="size-box-add" onClick={addToCartHandler}>
           Agregar al carrito
-        </button>
-        <button
-          className="size-box"
-          onClick={handleClickIncrement}
-          disabled={quantity >= stock}
-        >
-          +
         </button>
       </div>
     </>

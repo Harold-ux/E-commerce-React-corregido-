@@ -17,6 +17,7 @@ const ShopCategory = () => {
   const { loading, loadingScreen, showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     showLoading();
 
     const fetchProducts = async () => {
@@ -51,11 +52,11 @@ const ShopCategory = () => {
 
   const getBanner = () => {
     switch (categoryId) {
-      case 'men':
+      case "men":
         return men_banner;
-      case 'women':
+      case "women":
         return women_banner;
-      case 'kids':
+      case "kids":
         return kid_banner;
       default:
         return null;
@@ -77,8 +78,8 @@ const ShopCategory = () => {
           )}
           <div className="shopcategory-indexSort">
             <p>
-              <span>Mostrando 1-{Math.min(visibleCount, products.length)}</span> de{" "}
-              {products.length} productos
+              <span>Mostrando 1-{Math.min(visibleCount, products.length)}</span>{" "}
+              de {products.length} productos
             </p>
             <div className="shopcategory-sort">
               Ordenar por <img src={dropdown_icon} alt="dropdown icon" />
@@ -89,12 +90,18 @@ const ShopCategory = () => {
           </div>
           <div className="loadmore-container">
             {visibleCount < products.length && (
-              <button onClick={handleShowMore} className="shopcategory-loadmore">
+              <button
+                onClick={handleShowMore}
+                className="shopcategory-loadmore"
+              >
                 Ver más
               </button>
             )}
             {visibleCount > 8 && (
-              <button onClick={handleShowLess} className="shopcategory-loadmore">
+              <button
+                onClick={handleShowLess}
+                className="shopcategory-loadmore"
+              >
                 Ver menos
               </button>
             )}

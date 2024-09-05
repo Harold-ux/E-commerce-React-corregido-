@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import Swal from "sweetalert2";
+import { slowScrollToTop } from "../utils/slowScroll";
 
 const CartContext = createContext();
 
@@ -56,14 +57,6 @@ export const CartProvider = ({ children }) => {
         });
       }
     });
-  };
-
-  const slowScrollToTop = () => {
-    const position = document.documentElement.scrollTop || document.body.scrollTop;
-    if (position > 0) {
-      window.requestAnimationFrame(slowScrollToTop);
-      window.scrollTo(0, position - position / 32);
-    }
   };
 
   const contextValue = {

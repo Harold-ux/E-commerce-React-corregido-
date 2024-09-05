@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddDocument from "./components/AddDocument/AddDocument.jsx";
-import CartWidget from "./components/CartWidget/CartWidget.jsx";
+import Cart from "./components/Cart/Cart.jsx";
 import Comenta from "./components/Comenta/Comenta.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
@@ -12,14 +12,9 @@ import ShopContextProvider from "./context/ShopContext.jsx";
 import LoginSignUp from "./pages/LoginSignUp.jsx";
 import Shop from "./pages/Shop.jsx";
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton.jsx";
+import Checkout from "./components/Checkout/Checkout.jsx";
 
 function App() {
-  
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-
   return (
     <React.StrictMode>
       <BrowserRouter>
@@ -30,7 +25,8 @@ function App() {
               <Route path="/" element={<Shop />} />
               <Route path="/category/:categoryId" element={<ShopCategory />} />
               <Route path="/detail/:productId" element={<Product />} />
-              <Route path="/cartwidget" element={<CartWidget />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="/login" element={<LoginSignUp />} />
               <Route path="/add-document" element={<AddDocument />} />
             </Routes>

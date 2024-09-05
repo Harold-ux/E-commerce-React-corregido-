@@ -16,29 +16,45 @@
 
 .cantidad {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 52%;
+  flex-direction: column;
+  width: 100%;
   color: #3d3d3d;
-  padding-bottom: 10px;
+  padding-bottom: 18px;
 }
 
 .caja {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 15px 0;
   width: 100%;
 }
 
 .size-box {
-  padding: 6px 8px;
+  padding: 4px 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   background-color: #f8f8f8;
   transition: background-color 0.3s ease;
 }
+
+.size-box-add {
+  margin-top: 15px;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  background-color: #f8f8f8;
+  transition: background-color 0.12s ease, transform 0.12s ease;
+}
+
+.size-box-add:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.02);
+}
+
 
 .custom-swal-popup {
   width: 400px;
@@ -51,4 +67,10 @@
 
 .custom-swal-content {
   font-size: 5px;
+}
+
+.titulo-count {
+  font-size: 16px;
+  color: #3d3d3dfc;
+  font-weight: bolder;
 }
