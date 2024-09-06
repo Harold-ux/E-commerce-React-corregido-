@@ -41,41 +41,44 @@ const Cart = () => {
         <div className="cart">
           <h2>Productos en el carrito</h2>
           <div className="cart-items">
-            {cartItems.map((item) => (
-              <div key={item.id} className="cart-item">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="cart-item-image"
-                />
-                <div className="cart-item-details">
-                  <div className="cart-item-header">
-                    <span className="cart-item-name">{item.name}</span>
-                    <button
-                      className="remove-item-btn"
-                      onClick={() => removeFromCart(item.id)}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
-                  <span className="cart-item-price">
-                    Precio:{" "}
-                    <span className="cart-item-price-value">
-                      ${item.new_price}
+            {cartItems.map((item) => {
+              console.log(`Producto en el carrito: ID ${item.id}`); // Aquí verificas los IDs en el carrito
+              return (
+                <div key={item.id} className="cart-item">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="cart-item-image"
+                  />
+                  <div className="cart-item-details">
+                    <div className="cart-item-header">
+                      <span className="cart-item-name">{item.name}</span>
+                      <button
+                        className="remove-item-btn"
+                        onClick={() => removeFromCart(item.id)}
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                    <span className="cart-item-price">
+                      Precio:{" "}
+                      <span className="cart-item-price-value">
+                        ${item.new_price}
+                      </span>
                     </span>
-                  </span>
-                  <span className="cart-item-description">
-                    {item.description}
-                  </span>
-                  <span className="cart-item-quantity">
-                    Cantidad: {item.quantity}
-                  </span>
-                  <span className="cart-item-size">
-                    Talla: {item.selectedSize}
-                  </span>
+                    <span className="cart-item-description">
+                      {item.description}
+                    </span>
+                    <span className="cart-item-quantity">
+                      Cantidad: {item.quantity}
+                    </span>
+                    <span className="cart-item-size">
+                      Talla: {item.selectedSize}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <div className="cart-footer">
             <button className="vaciar-carrito-btn" onClick={handleClearCart}>

@@ -8,7 +8,7 @@ import "./Product.css";
 const Product = () => {
   const { products, handleAddToCart } = useContext(ShopContext);
   const { productId } = useParams();
-  const product = products.find((product) => product.id === Number(productId));
+  const product = products.find((product) => product.id === productId);
 
   return (
     <div>
@@ -21,5 +21,6 @@ const Product = () => {
     </div>
   );
 };
+
 
 export default Product;

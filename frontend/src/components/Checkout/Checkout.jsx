@@ -1,10 +1,11 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useCart } from "../../context/CartContext";
 import db from "../../db/firebaseConfig";
 import Formulario from "./Formulario";
+import './Checkout.css';  // Importa el archivo CSS
 
 const Checkout = () => {
   const [datosForm, setDatosForm] = useState({
@@ -14,7 +15,7 @@ const Checkout = () => {
     Email: "",
   });
 
-  const { cartItems, totalAmount } = useCart();
+  const { cartItems, totalAmount, clearCart } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +30,82 @@ const Checkout = () => {
     });
   };
 
+  const generateOrder = async (orden) => {
+    try {
+      const ordenesRef = collection(db, "orders");
+      const respuesta = await addDoc(ordenesRef, orden);
+      console.log("Orden guardada con éxito:", respuesta.id);
+
+      Swal.fire({
+        icon: "success",
+        title: "Orden completada",
+        text: `Su orden ha sido completada con el id: ${respuesta.id}, consérvelo!!`,
+        customClass: {
+          popup: "custom-swal-popup",
+          title: "custom-swal-title",
+          text: "custom-swal-content",
+        },
+      }).then(() => {
+        // Descontar el stock
+        updateStock();
+        clearCart(); 
+        navigate("/");
+      });
+
+      setDatosForm({
+        Nombre: "",
+        Dirección: "",
+        Teléfono: "",
+        Email: "",
+      });
+    } catch (error) {
+      console.error("Error al guardar la orden:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al completar su orden. Por favor, inténtelo nuevamente.",
+      });
+    }
+  };
+
+  const updateStock = async () => {
+    try {
+      for (const item of cartItems) {
+        const productoRef = doc(db, "products", item.id);
+        await updateDoc(productoRef, {
+          stock: item.stock - item.quantity,
+        });
+      }
+      console.log("Stock actualizado correctamente");
+  
+      // Mostrar alerta si el stock se actualizó correctamente
+      Swal.fire({
+        icon: "success",
+        title: "Stock actualizado",
+        text: "El stock de los productos se ha descontado correctamente.",
+        customClass: {
+          popup: "custom-swal-popup",
+          title: "custom-swal-title",
+          text: "custom-swal-content",
+        },
+      });
+    } catch (error) {
+      console.error("Error al actualizar el stock:", error);
+      
+      // Mostrar alerta de error si hubo problemas al actualizar el stock
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un problema al actualizar el stock. Por favor, inténtelo nuevamente.",
+        customClass: {
+          popup: "custom-swal-popup",
+          title: "custom-swal-title",
+          text: "custom-swal-content",
+        },
+      });
+    }
+  };
+
   const handleSubmitForm = (e) => {
     e.preventDefault();
     console.log(datosForm);
@@ -39,53 +116,27 @@ const Checkout = () => {
       total: totalAmount,
     };
 
-    const generateOrder = async (orden) => {
-      try {
-        const ordenesRef = collection(db, "orders");
-        const respuesta = await addDoc(ordenesRef, orden);
-        console.log("Orden guardada con éxito:", respuesta.id);
-
-        Swal.fire({
-          icon: "success",
-          title: "Orden completada",
-          text: `Su orden ha sido completada con el id: ${respuesta.id}`,
-          customClass: {
-            popup: "custom-swal-popup",
-            title: "custom-swal-title",
-            text: "custom-swal-content",
-          },
-        }).then(() => {
-          navigate("/");
-        });
-      } catch (error) {
-        console.error("Error al guardar la orden:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Hubo un error al completar su orden. Por favor, inténtelo nuevamente.",
-        });
-      }
-    };
-
     generateOrder(orden);
-
-    setTimeout(() => {
-      setDatosForm({
-        Nombre: "",
-        Dirección: "",
-        Teléfono: "",
-        Email: "",
-      });
-    }, 1500);
   };
 
   return (
-    <div>
-      <Formulario
-        datosForm={datosForm}
-        handleChangeInput={handleChangeInput}
-        handleSubmitForm={handleSubmitForm}
-      />
+    <div className="checkout-container">
+      <div className="text-side">
+        <h2>Complete su Compra</h2>
+        <img 
+          src="/gifs/arrow-3517_256.gif" 
+          alt="Indicador de carga" 
+          className="checkout-gif"
+        />
+        <p>Por favor, rellene el formulario para completar su compra.</p>
+      </div>
+      <div className="checkout">
+        <Formulario
+          datosForm={datosForm}
+          handleChangeInput={handleChangeInput}
+          handleSubmitForm={handleSubmitForm}
+        />
+      </div>
     </div>
   );
 };

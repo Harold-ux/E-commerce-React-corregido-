@@ -27,7 +27,7 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const clearCart = () => {
+  const clearCartWithAlert = () => {
     Swal.fire({
       title: "¿Estás seguro?",
       text: "No podrás deshacer esta acción",
@@ -59,11 +59,16 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   const contextValue = {
     cartItems,
     addToCart,
     removeFromCart,
-    clearCart,
+    clearCart,  
+    clearCartWithAlert,
     totalQuantity: cartItems.reduce((total, item) => total + item.quantity, 0),
     totalAmount: cartItems.reduce((total, item) => total + item.new_price * item.quantity, 0),
   };

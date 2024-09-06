@@ -1,10 +1,11 @@
 import React from "react";
+import './Checkout.css';  // Asegúrate de importar el CSS aquí también
 
 const Formulario = ({ datosForm, handleChangeInput, handleSubmitForm }) => {
   return (
-    <div>
+    <div className="form-checkout">
       <form onSubmit={handleSubmitForm}>
-        <div>
+        <div className="box-input">
           <label htmlFor="Nombre">Nombre:</label>
           <input
             type="text"
@@ -16,7 +17,7 @@ const Formulario = ({ datosForm, handleChangeInput, handleSubmitForm }) => {
           />
         </div>
 
-        <div>
+        <div className="box-input">
           <label htmlFor="Dirección">Dirección:</label>
           <input
             type="text"
@@ -28,7 +29,7 @@ const Formulario = ({ datosForm, handleChangeInput, handleSubmitForm }) => {
           />
         </div>
 
-        <div>
+        <div className="box-input">
           <label htmlFor="Teléfono">Teléfono:</label>
           <input
             type="tel"
@@ -40,7 +41,7 @@ const Formulario = ({ datosForm, handleChangeInput, handleSubmitForm }) => {
           />
         </div>
 
-        <div>
+        <div className="box-input">
           <label htmlFor="Email">Email:</label>
           <input
             type="email"
@@ -51,8 +52,9 @@ const Formulario = ({ datosForm, handleChangeInput, handleSubmitForm }) => {
             required
           />
         </div>
+
         <div>
-          <button type="submit">Completar Compra</button>
+          <button type="submit" className="button-submit">Completar Compra</button>
         </div>
       </form>
     </div>
