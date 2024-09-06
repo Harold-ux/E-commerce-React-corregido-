@@ -8,7 +8,7 @@ import { slowScrollToTop } from "../../utils/slowScroll.js";
 const Cart = () => {
   const {
     cartItems = [],
-    clearCart,
+    clearCartWithAlert,
     removeFromCart,
     totalQuantity,
     totalAmount,
@@ -26,8 +26,8 @@ const Cart = () => {
     return () => clearTimeout(timer);
   }, [showLoading, hideLoading]);
 
-  const handleClearCart = () => {
-    clearCart();
+  const handleClearCartWithAlert = () => {
+    clearCartWithAlert();
     slowScrollToTop();
   };
 
@@ -42,7 +42,7 @@ const Cart = () => {
           <h2>Productos en el carrito</h2>
           <div className="cart-items">
             {cartItems.map((item) => {
-              console.log(`Producto en el carrito: ID ${item.id}`); // Aquí verificas los IDs en el carrito
+              console.log(`Producto en el carrito: ID ${item.id}`);
               return (
                 <div key={item.id} className="cart-item">
                   <img
@@ -81,7 +81,7 @@ const Cart = () => {
             })}
           </div>
           <div className="cart-footer">
-            <button className="vaciar-carrito-btn" onClick={handleClearCart}>
+            <button className="vaciar-carrito-btn" onClick={handleClearCartWithAlert}>
               Vaciar carrito
             </button>
             <div className="cart-total">

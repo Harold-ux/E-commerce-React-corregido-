@@ -9,6 +9,13 @@ const ItemCount = ({ stock, selectedSize, product }) => {
   const { addToCart, cartItems } = useCart();
   const navigate = useNavigate();
 
+  // Buscar la cantidad ya agregada al carrito para este producto
+  const cartItem = cartItems.find((item) => item.id === product.id && item.selectedSize === selectedSize);
+  const quantityInCart = cartItem ? cartItem.quantity : 0;
+
+  // Calcular el stock restante basado en lo que ya está en el carrito
+  const remainingStock = stock - quantityInCart;
+
   useEffect(() => {
     console.log("Selected size changed:", selectedSize);
   }, [selectedSize]);
@@ -18,16 +25,19 @@ const ItemCount = ({ stock, selectedSize, product }) => {
   }, [cartItems]);
 
   const handleClickIncrement = () => {
-    console.log("Increment clicked, Quantity:", quantity, "Stock:", stock);
+    console.log("Increment clicked, Quantity:", quantity, "Remaining Stock:", remainingStock);
 
-    if (typeof stock === "number" && quantity < stock) {
+    if (quantity < remainingStock) {
       const newQuantity = quantity + 1;
 
-      if (newQuantity === stock) {
+      // Permitir incrementar hasta el valor máximo del stock restante
+      setQuantity(newQuantity);
+
+      if (newQuantity === remainingStock) {
         Swal.fire({
           icon: "info",
-          title: "Stock alcanzado",
-          text: "Has alcanzado el límite del stock disponible.",
+          title: "Has alcanzado el stock máximo",
+          text: "No puedes agregar más de lo disponible en stock.",
           customClass: {
             popup: "custom-swal-popup",
             title: "custom-swal-title",
@@ -35,14 +45,11 @@ const ItemCount = ({ stock, selectedSize, product }) => {
           },
         });
       }
-
-      setQuantity(newQuantity);
-    } else {
-      console.log("Increment button disabled - Max stock reached.");
+    } else if (quantity >= remainingStock) {
       Swal.fire({
         icon: "warning",
         title: "Límite alcanzado",
-        text: "Cantidad máxima permitida!",
+        text: "No puedes agregar más del stock disponible.",
         customClass: {
           popup: "custom-swal-popup",
           title: "custom-swal-title",
@@ -57,7 +64,6 @@ const ItemCount = ({ stock, selectedSize, product }) => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     } else {
-      console.log("Decrement button disabled - Min quantity reached.");
       Swal.fire({
         icon: "warning",
         title: "No puedes disminuir más!",
@@ -107,7 +113,7 @@ const ItemCount = ({ stock, selectedSize, product }) => {
     }
 
     addToCart({ ...product, quantity, selectedSize });
-    setQuantity(0);
+    setQuantity(0); // Reiniciar cantidad a 0
     Swal.fire({
       icon: "success",
       title: "Producto agregado",
@@ -138,6 +144,8 @@ const ItemCount = ({ stock, selectedSize, product }) => {
     });
   };
 
+  const isOutOfStock = quantity === remainingStock; // Deshabilitar botón cuando se alcanza el stock restante
+
   return (
     <>
       <div className="cantidad">
@@ -154,13 +162,17 @@ const ItemCount = ({ stock, selectedSize, product }) => {
           <button
             className="size-box"
             onClick={handleClickIncrement}
-            disabled={quantity >= stock}
+            disabled={quantity >= remainingStock}
           >
             +
           </button>
         </div>
-        <button className="size-box-add" onClick={addToCartHandler}>
-          Agregar al carrito
+        <button
+          className={`size-box-add ${quantity >= remainingStock ? "disabled" : ""}`}
+          onClick={addToCartHandler}
+          disabled={quantity === 0 || quantity > remainingStock}
+        >
+          {quantity >= remainingStock ? "Stock alcanzado" : "Agregar al carrito"}
         </button>
       </div>
     </>

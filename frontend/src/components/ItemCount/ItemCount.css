@@ -55,6 +55,11 @@
   transform: scale(1.02);
 }
 
+.size-box-add.disabled {
+  background-color: rgb(185, 177, 177);
+  color: red;
+}
+
 
 .custom-swal-popup {
   width: 400px;

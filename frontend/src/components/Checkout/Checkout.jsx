@@ -1,11 +1,17 @@
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  Timestamp,
+  updateDoc,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useCart } from "../../context/CartContext";
 import db from "../../db/firebaseConfig";
+import "./Checkout.css";
 import Formulario from "./Formulario";
-import './Checkout.css';  // Importa el archivo CSS
 
 const Checkout = () => {
   const [datosForm, setDatosForm] = useState({
@@ -46,9 +52,8 @@ const Checkout = () => {
           text: "custom-swal-content",
         },
       }).then(() => {
-        // Descontar el stock
         updateStock();
-        clearCart(); 
+        clearCart();
         navigate("/");
       });
 
@@ -77,7 +82,7 @@ const Checkout = () => {
         });
       }
       console.log("Stock actualizado correctamente");
-  
+
       // Mostrar alerta si el stock se actualizó correctamente
       Swal.fire({
         icon: "success",
@@ -91,7 +96,7 @@ const Checkout = () => {
       });
     } catch (error) {
       console.error("Error al actualizar el stock:", error);
-      
+
       // Mostrar alerta de error si hubo problemas al actualizar el stock
       Swal.fire({
         icon: "error",
@@ -113,6 +118,7 @@ const Checkout = () => {
     const orden = {
       comprador: { ...datosForm },
       productos: [...cartItems],
+      fecha: Timestamp.fromDate(new Date()),
       total: totalAmount,
     };
 
@@ -123,9 +129,9 @@ const Checkout = () => {
     <div className="checkout-container">
       <div className="text-side">
         <h2>Complete su Compra</h2>
-        <img 
-          src="/gifs/arrow-3517_256.gif" 
-          alt="Indicador de carga" 
+        <img
+          src="/gifs/arrow-3517_256.gif"
+          alt="Indicador de carga"
           className="checkout-gif"
         />
         <p>Por favor, rellene el formulario para completar su compra.</p>
