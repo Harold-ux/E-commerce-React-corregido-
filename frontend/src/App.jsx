@@ -13,6 +13,8 @@ import LoginSignUp from "./pages/LoginSignUp.jsx";
 import Shop from "./pages/Shop.jsx";
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton.jsx";
 import Checkout from "./components/Checkout/Checkout.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
             <Comenta />
             <ScrollToTopButton />
             <Footer />
+            <ToastContainer />
           </CartProvider>
         </ShopContextProvider>
       </BrowserRouter>

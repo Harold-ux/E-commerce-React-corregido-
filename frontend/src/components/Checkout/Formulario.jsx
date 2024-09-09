@@ -1,5 +1,6 @@
 import React from "react";
-import './Checkout.css';  // Asegúrate de importar el CSS aquí también
+import "./Checkout.css";
+
 
 const Formulario = ({ datosForm, handleChangeInput, handleSubmitForm }) => {
   return (
@@ -54,7 +55,9 @@ const Formulario = ({ datosForm, handleChangeInput, handleSubmitForm }) => {
         </div>
 
         <div>
-          <button type="submit" className="button-submit">Completar Compra</button>
+          <button type="submit" className="button-submit">
+            Completar Compra
+          </button>
         </div>
       </form>
     </div>

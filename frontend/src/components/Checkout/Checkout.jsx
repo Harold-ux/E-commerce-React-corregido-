@@ -12,6 +12,7 @@ import { useCart } from "../../context/CartContext";
 import db from "../../db/firebaseConfig";
 import "./Checkout.css";
 import Formulario from "./Formulario";
+import validateForm from "../../utils/validation";
 
 const Checkout = () => {
   const [datosForm, setDatosForm] = useState({
@@ -111,19 +112,28 @@ const Checkout = () => {
     }
   };
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
     console.log(datosForm);
-
-    const orden = {
-      comprador: { ...datosForm },
-      productos: [...cartItems],
-      fecha: Timestamp.fromDate(new Date()),
-      total: totalAmount,
-    };
-
-    generateOrder(orden);
+  
+    // Validamos el formulario
+    const response = await validateForm(datosForm);
+  
+    // Solo se genera la orden si la validación es exitosa
+    if (response.status === "success") {
+      const orden = {
+        comprador: { ...datosForm },
+        productos: [...cartItems],
+        fecha: Timestamp.fromDate(new Date()),
+        total: totalAmount,
+      };
+      
+      generateOrder(orden);
+    } else {
+      console.log("Error en la validación del formulario:", response.message);
+    }
   };
+  
 
   return (
     <div className="checkout-container">
