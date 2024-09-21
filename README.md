@@ -149,7 +149,7 @@ MongoDB está conectado...
 
 /////////////////////////////////////////////////////////////
 
-Luego, tenemos el comando para correr el archivo principal App.jsx en el Front-end, que es:
+Luego, tenemos el comando para correr el archivo principal App.jsx en el `Front-end`, que es:
 
 `(npm run dev)`
 
@@ -165,7 +165,7 @@ VITE v5.2.12 ready in 227 ms
 ///////////////////////////////////////////////////////////
 
 Y por último tenemos el proyecto entero con ambas bases de datos funcionando desde las carpetas (Front y Back-end)... solo se requiere correr el comando
-"npm run start:all" desde la ruta de la carpeta principal: "C:\Users\Harol\OneDrive\Escritorio\Entrega_ Final_React (corregida)> "
+`npm run start:all` desde la ruta de la carpeta principal: "C:\Users\Harol\OneDrive\Escritorio\Entrega_ Final_React (corregida)> "
 
 en esta ruta se puede correr y obtener conexión a las colecciones de las bases de datos que se usan para los comentarios y para guardar los productos y las ordenes
 
